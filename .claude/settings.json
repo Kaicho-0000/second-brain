@@ -1,0 +1,38 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "file=\"$CLAUDE_TOOL_ARG_file_path\"; if [[ \"$file\" == *.md ]] && [[ \"$file\" != */templates/* ]] && [[ \"$file\" != *CLAUDE.md ]] && [[ \"$file\" != *AGENTS.md ]] && [[ \"$file\" != *MEMORY.md ]] && [[ \"$file\" != *SKILL.md ]]; then if ! head -1 \"$file\" 2>/dev/null | grep -q '^---'; then echo 'WARN: フロントマターがありません → tags, created, status を追加してください' >&2; fi; fi; exit 0",
+            "statusMessage": "フロントマター検証中"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "file=\"$CLAUDE_TOOL_ARG_file_path\"; if [[ \"$file\" == *.md ]] && [[ \"$file\" != */templates/* ]] && [[ \"$file\" != *CLAUDE.md ]] && [[ \"$file\" != *AGENTS.md ]] && [[ \"$file\" != *MEMORY.md ]] && [[ \"$file\" != *SKILL.md ]]; then if ! head -1 \"$file\" 2>/dev/null | grep -q '^---'; then echo 'WARN: フロントマターがありません → tags, created, status を追加してください' >&2; fi; fi; exit 0",
+            "statusMessage": "フロントマター検証中"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"Session ended: $(date '+%Y-%m-%d %H:%M')\" >> /home/tkd/test/second-brain/.claude/session-log.txt; exit 0",
+            "statusMessage": "セッション記録中",
+            "async": true
+          }
+        ]
+      }
+    ]
+  }
+}

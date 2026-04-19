@@ -5,6 +5,10 @@
 .obsidian/hotkeys.json
 .trash/
 
+# Claude Code
+.mcp.json
+.claude/session-log.txt
+
 # OS
 .DS_Store
 Thumbs.db
